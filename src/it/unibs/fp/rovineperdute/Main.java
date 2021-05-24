@@ -45,15 +45,19 @@ public class Main {
         citta.add(mixco_vieio);
         citta.add(rovine_perdute);
 
-        Team team = new Team("b", "Tonatiuh");
+        Team team1 = new Team("a", "Tonatiuh");
+        Team team2 = new Team("b", "Metztli");
 
-        Citta.calcolaPesoPercorso(citta, team);
+        Citta.calcolaPesoPercorso(citta, team1);
+        team1.calcolaPercorsoMinimo(citta);
+
+        Citta.calcolaPesoPercorso(citta, team2);
+        team2.calcolaPercorsoMinimo(citta);
 
         Xml.leggiCitta("PgAr_Map_5.xml", citta);
 
         for(int i=0; i<citta.size();i++)
             System.out.println(citta.get(i).toString());
-
 
     }
 }

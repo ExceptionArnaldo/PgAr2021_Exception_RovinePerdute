@@ -1,5 +1,7 @@
 package it.unibs.fp.rovineperdute;
 
+import java.util.ArrayList;
+
 public class Team {
 
     private String nome;
@@ -24,5 +26,20 @@ public class Team {
 
     public void setVeicolo(String veicolo) {
         this.veicolo = veicolo;
+    }
+
+    public void calcolaPercorsoMinimo(ArrayList<Citta> citta){
+
+        Citta citta_partenza = citta.get(0);
+        Citta citta_arrivo = citta.get(citta.size()-1);
+
+        int carburante_attuale = 0;
+
+        for(int i = 0; i < citta_partenza.getPercorsi().size(); i++){
+
+
+
+        }
+
     }
 }
