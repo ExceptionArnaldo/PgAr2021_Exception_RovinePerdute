@@ -6,22 +6,18 @@ public class Costante {
     public static final String ERRORE_LETTURA = "Errore nell'inizializzazione del reader:";
     public static final String ERRORE_SCRITTURA = "Errore nella scrittura";
 
-    public static final String OUTPUT = "output";
-    public static final String PERSONE = "persone";
-    public static final String NUMERO = "numero";
-    public static final String PERSONA = "persona";
-    public static final String ID = "ID";
-    public static final String NOME = "nome";
-    public static final String COGNOME = "cognome";
-    public static final String SESSO = "sesso";
-    public static final String COMUNE_NASCITA = "comune_nascita";
-    public static final String DATA_NASCITA = "data_nascita";
-    public static final String CODICE_FISCALE = "codice_fiscale";
+    public static final String ID = "id";
+    public static final String NOME = "name";
+    public static final String COORDINATAX = "x";
+    public static final String COORDINATAY = "y";
+    public static final String COORDINATAH = "h";
 
-    public static final String CODICI = "codici";
-    public static final String CODICE = "codice";
-    public static final String INVALIDI = "invalidi";
-    public static final String SPAIATI = "spaiati";
+    public static final String ROUTES = "routes";
+    public static final String ROUTE = "route";
+    public static final String TEAM = "team";
+    public static final String COSTO = "cost";
+    public static final String NUMERO_CITTA = "cities";
+    public static final String CITTA = "city";
 
     public static final String ENCODING = "utf-8";
     public static final String VERSION = "1.0";

@@ -13,19 +13,19 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-/*
+import java.util.HashMap;
+
 public class Xml {
     //legge un file xml e salva i dati delle citta in un ArrayList di tipo persona
-    public static void leggiPersone(String nome_file, ArrayList<Citta> citta) {
+    public static void leggiCitta(String nome_file, ArrayList<Citta> citta) {
 
         XMLInputFactory xmlif;
         XMLStreamReader xmlr;
 
         String nome = null;
-        String cognome = null;
-        String sesso = null;
-        String comune_nascita = null;
-        String data_nascita;
+        Punto coordinata = null;
+        int id = 0;
+        HashMap<Integer, Integer> percorso = null;
 
         try {
             xmlif = XMLInputFactory.newInstance();
@@ -33,28 +33,40 @@ public class Xml {
 
             while (xmlr.hasNext()) {
                 if (xmlr.getEventType() == XMLStreamConstants.START_ELEMENT) { //interessano solo i dati relativi alle citta
-                    switch (xmlr.getLocalName()) {
-                        case Costante.NOME:
-                            xmlr.next();
-                            nome = xmlr.getText();
-                            break;
-                        case Costante.COGNOME:
-                            xmlr.next();
-                            cognome = xmlr.getText();
-                            break;
-                        case Costante.SESSO:
-                            xmlr.next();
-                            sesso = xmlr.getText();
-                            break;
-                        case Costante.COMUNE_NASCITA:
-                            xmlr.next();
-                            comune_nascita = xmlr.getText();
-                            break;
-                        case Costante.DATA_NASCITA:
-                            xmlr.next();
-                            data_nascita = xmlr.getText();
-                            //citta.add(new Citta(nome, cognome, sesso, comune_nascita, data_nascita, new codiceFiscale(" "))); //ottenuti tutti i valori dell'xml di una persona. Creazione Persona
-                            break;
+                    if(xmlr.getLocalName().equals("city")) {
+                        percorso = new HashMap<>();
+                        coordinata = new Punto();
+                        for (int i = 0; i < xmlr.getAttributeCount(); i++) {
+                            //System.out.printf(" => attributo %s->%s%n", xmlr.getAttributeLocalName(i), xmlr.getAttributeValue(i));
+                            switch (xmlr.getAttributeLocalName(i)) {
+                                case Costante.ID:
+                                    id = Integer.parseInt(xmlr.getAttributeValue(i));
+                                    break;
+                                case Costante.NOME:
+                                    //xmlr.next();
+                                    nome = xmlr.getAttributeValue(i);
+                                    break;
+                                case Costante.COORDINATAX:
+                                    //xmlr.next();
+                                    coordinata.setX(Integer.parseInt(xmlr.getAttributeValue(i)));
+                                    break;
+                                case Costante.COORDINATAY:
+                                    //xmlr.next();
+                                    coordinata.setY(Integer.parseInt(xmlr.getAttributeValue(i)));
+                                    break;
+                                case Costante.COORDINATAH:
+                                    //xmlr.next();
+                                    coordinata.setZ(Integer.parseInt(xmlr.getAttributeValue(i)));
+                                    citta.add(new Citta(id, nome, coordinata)); //ottenuti tutti i valori dell'xml di una citta. Creazione citta senza link
+                                    break;
+                            }
+                        }
+                    }
+                    else if(xmlr.getLocalName().equals("link")){
+                        //xmlr.next();
+                        percorso.put(Integer.parseInt(xmlr.getAttributeValue(0)),0);
+                        citta.get(citta.size()-1).setPercorsi(percorso);
+
                     }
                 }
                 xmlr.next();
@@ -65,7 +77,8 @@ public class Xml {
         }
     }
 
-    public static void scriviPersone(String nome_file, ArrayList<Persona> persone, ArrayList<codiceFiscale> codici_invalidi, ArrayList<codiceFiscale> codici_spaiati) {
+    /*
+    public static void scriviPercorso(String nome_file, ArrayList<Persona> persone, ArrayList<codiceFiscale> codici_invalidi, ArrayList<codiceFiscale> codici_spaiati) {
 
         XMLOutputFactory xmlof;
         XMLStreamWriter xmlw;
@@ -74,23 +87,10 @@ public class Xml {
             xmlof = XMLOutputFactory.newInstance();
             xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(nome_file), Costante.ENCODING);
             xmlw.writeStartDocument(Costante.ENCODING, Costante.VERSION);
-            xmlw.writeStartElement(Costante.OUTPUT); // scrittura del tag radice output
+            xmlw.writeStartElement(Costante.ROUTES); // scrittura del tag radice output
 
-            xmlw.writeStartElement(Costante.PERSONE);
-            xmlw.writeAttribute(Costante.NUMERO, Integer.toString(persone.size()));
-
-            for (int i = 0; i < persone.size(); i++) {
-                xmlw.writeStartElement(Costante.PERSONA); // apertura del tag <persona>
-                xmlw.writeAttribute(Costante.ID, Integer.toString(i)); // attributo id
-                scriviTag(xmlw, Costante.NOME, persone.get(i).getNome()); // scrittura del tag <nome>
-                scriviTag(xmlw, Costante.COGNOME, persone.get(i).getCognome()); // scrittura del tag <cognome>
-                scriviTag(xmlw, Costante.SESSO, persone.get(i).getSesso()); // scrittura del tag <sesso>
-                scriviTag(xmlw, Costante.COMUNE_NASCITA, persone.get(i).getComune_nascita()); // scrittura del tag <comune_nascita>
-                scriviTag(xmlw, Costante.DATA_NASCITA, persone.get(i).getData_nascita()); // scrittura del tag <data_nascita>
-                scriviTag(xmlw, Costante.CODICE_FISCALE, persone.get(i).getCodice_fiscale()); // scrittura del tag <codice_fiscale>
-                xmlw.writeEndElement(); // chiusura di </persona>
-            }
-            xmlw.writeEndElement(); // chiusura di </persone>
+            stampaCodici();
+            stampaCodici();
 
             xmlw.writeStartElement(Costante.CODICI); // scrittura del tag <codici>
             stampaCodici(xmlw, Costante.INVALIDI, codici_invalidi);
@@ -106,6 +106,21 @@ public class Xml {
             System.out.println(Costante.ERRORE_SCRITTURA);
             System.out.println(e.getMessage());
         }
+    }
+
+    private static void stampaCodici(){
+        xmlw.writeStartElement(Costante.ROUTE);
+        xmlw.writeAttribute(Costante.TEAM, team.getNome());
+        xmlw.writeAttribute(Costante.COSTO, Integer.toString(team.getCarburante()));
+        xmlw.writeAttribute(Costante.NUMERO_CITTA, Integer.toString(boh));
+
+        for (int i = 0; i < boh; i++) {
+            xmlw.writeStartElement(Costante.CITTA); // apertura del tag <city>
+            xmlw.writeAttribute(Costante.ID, boh); // attributo id
+            xmlw.writeAttribute(Costante.NOME, boh);
+            xmlw.writeEndElement(); // chiusura di </city>
+        }
+        xmlw.writeEndElement(); // chiusura di </route>
     }
 
     //stampa CF
@@ -205,4 +220,6 @@ public class Xml {
         Result result = new StreamResult(new File(file));
         transformer.transform(source, result);
     }
-}*/
+
+*/
+}

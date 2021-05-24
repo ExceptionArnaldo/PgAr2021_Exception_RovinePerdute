@@ -49,5 +49,11 @@ public class Main {
 
         Citta.calcolaPesoPercorso(citta, team);
 
+        Xml.leggiCitta("PgAr_Map_5.xml", citta);
+
+        for(int i=0; i<citta.size();i++)
+            System.out.println(citta.get(i).toString());
+
+
     }
 }

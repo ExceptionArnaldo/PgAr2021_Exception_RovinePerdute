@@ -11,6 +11,12 @@ public class Citta {
     private Punto coordinata;
     private HashMap<Integer, Integer> percorsi;
 
+    public Citta(int id, String nome, Punto coordinata){
+        this.id = id;
+        this.nome = nome;
+        this.coordinata = coordinata;
+    }
+
     public Citta(int id, String nome, Punto coordinata, HashMap<Integer, Integer> percorsi) {
         this.id = id;
         this.nome = nome;
@@ -62,5 +68,47 @@ public class Citta {
         }
 
         return citta_cercato;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Punto getCoordinata() {
+        return coordinata;
+    }
+
+    public void setCoordinata(Punto coordinata) {
+        this.coordinata = coordinata;
+    }
+
+    public HashMap<Integer, Integer> getPercorsi() {
+        return percorsi;
+    }
+
+    public void setPercorsi(HashMap<Integer, Integer> percorsi) {
+        this.percorsi = percorsi;
+    }
+
+    @Override
+    public String toString() {
+        return "Citta{" +
+                "ID=" + id +
+                ", nome='" + nome + '\'' +
+                ", coordinata=" + coordinata +
+                ", percorso=" + percorsi +
+                '}';
     }
 }
