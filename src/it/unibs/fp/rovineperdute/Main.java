@@ -56,7 +56,7 @@ public class Main {
 
         Xml.leggiCitta("PgAr_Map_5.xml", citta);
 
-        for(int i=0; i<citta.size();i++)
+        for (int i = 0; i < citta.size(); i++)
             System.out.println(citta.get(i).toString());
 
     }

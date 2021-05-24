@@ -6,10 +6,24 @@ public class Team {
 
     private String nome;
     private String veicolo;
+    private int carburante;
+    private ArrayList<Citta> percorso = new ArrayList<>();
 
-    public Team(String nome, String veicolo){
+    public Team(String nome, String veicolo) {
         this.nome = nome;
         this.veicolo = veicolo;
+    }
+
+    public void calcolaPercorsoMinimo(ArrayList<Citta> citta) {
+
+        Citta citta_partenza = citta.get(0);
+        Citta citta_arrivo = citta.get(citta.size() - 1);
+
+        int carburante_attuale = 0;
+
+        for (int i = 0; i < citta_partenza.getPercorsi().size(); i++) {
+
+        }
     }
 
     public String getNome() {
@@ -28,18 +42,19 @@ public class Team {
         this.veicolo = veicolo;
     }
 
-    public void calcolaPercorsoMinimo(ArrayList<Citta> citta){
+    public int getCarburante() {
+        return carburante;
+    }
 
-        Citta citta_partenza = citta.get(0);
-        Citta citta_arrivo = citta.get(citta.size()-1);
+    public void setCarburante(int carburante) {
+        this.carburante = carburante;
+    }
 
-        int carburante_attuale = 0;
+    public ArrayList<Citta> getPercorso() {
+        return percorso;
+    }
 
-        for(int i = 0; i < citta_partenza.getPercorsi().size(); i++){
-
-
-
-        }
-
+    public void setPercorso(ArrayList<Citta> percorso) {
+        this.percorso = percorso;
     }
 }

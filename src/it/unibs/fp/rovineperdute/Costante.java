@@ -3,6 +3,9 @@ package it.unibs.fp.rovineperdute;
 public class Costante {
 
     // usati nella classe XML
+    public static final int C0 = 0;
+    public static final int C1 = 1;
+
     public static final String ERRORE_LETTURA = "Errore nell'inizializzazione del reader:";
     public static final String ERRORE_SCRITTURA = "Errore nella scrittura";
 
@@ -11,10 +14,14 @@ public class Costante {
     public static final String COORDINATAX = "x";
     public static final String COORDINATAY = "y";
     public static final String COORDINATAH = "h";
+    public static final String LINK = "link";
 
     public static final String ROUTES = "routes";
     public static final String ROUTE = "route";
     public static final String TEAM = "team";
+    public static final String TEAM_NOME1 = "Tonathiu";
+    public static final String TEAM_NOME2 = "Metztli";
+
     public static final String COSTO = "cost";
     public static final String NUMERO_CITTA = "cities";
     public static final String CITTA = "city";
