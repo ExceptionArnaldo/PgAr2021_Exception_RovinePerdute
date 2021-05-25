@@ -38,11 +38,11 @@ public class Main {
         Team team1 = new Team("a", Costante.TEAM_NOME1); // si puo mettere in un metodo
         Team team2 = new Team("b", Costante.TEAM_NOME2);
 
-        Citta.calcolaPesoPercorso(citta, team1); // Analisi dei dati sulle città
-        team1.calcolaPercorsoMinimo(citta);      // Calcolo percorso ottimale
+        //Citta.calcolaPesoPercorso(citta, team1); // Analisi dei dati sulle città
+        //team1.calcolaPercorsoMinimo(citta);      // Calcolo percorso ottimale
 
-        Citta.calcolaPesoPercorso(citta, team2);
-        team2.calcolaPercorsoMinimo(citta);
+        //Citta.calcolaPesoPercorso(citta, team2);
+        //team2.calcolaPercorsoMinimo(citta);
 
         Xml.scriviPercorso(Costante.FILE_ROUTES, team1, team2); // Scrittura del documento finale
         Xml.formatXMLFile(Costante.FILE_ROUTES); // formattazione file
