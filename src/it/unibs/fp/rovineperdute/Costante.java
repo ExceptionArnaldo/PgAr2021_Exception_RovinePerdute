@@ -2,9 +2,10 @@ package it.unibs.fp.rovineperdute;
 
 public class Costante {
 
-    // usati nella classe XML
     public static final int C0 = 0;
     public static final int C1 = 1;
+
+    // usati nella classe XML
 
     public static final String ERRORE_LETTURA = "Errore nell'inizializzazione del reader:";
     public static final String ERRORE_SCRITTURA = "Errore nella scrittura";
@@ -34,5 +35,10 @@ public class Costante {
     public static final String HTTPS_FORMATTAZIONE = "{https://xml.apache.org/xslt}indent-amount";
     public static final String LIVELLO_INDENTAZIONE = "2";
     public static final String DICHIARAZIONE_FORMATTAZIONE = "yes";
-    public static final String FILE_ROUTES = "Routes.xml";
+
+    // usati nel Main
+    public static final int[] FILE_INPUT_INDICE = {5, 12, 50, 200, 2000, 10000};
+    public static final String FILE_INPUT = "./percorsi/file_input/PgAr_Map_%d.xml";
+    public static final String FILE_OUTPUT = "./percorsi/file_output/Routes_%d.xml";
+    public static final String FILE_ROUTES = "./percorsi/file_output/Routes.xml";
 }
