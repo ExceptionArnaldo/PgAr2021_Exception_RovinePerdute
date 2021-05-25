@@ -1,6 +1,8 @@
 package it.unibs.fp.rovineperdute;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Team {
 
@@ -33,7 +35,11 @@ public class Team {
         Citta citta_partenza = citta.get(0);
         Citta citta_arrivo = citta.get(citta.size()-1);
 
-        int carburante_attuale = 0;
+        HashMap<Citta, Integer> percorso_minimo = new LinkedList<>();
+
+        for (Citta nodo : citta) {
+            percorso_minimo.put(nodo, 0);
+        }
 
         for(int i = 0; i < citta_partenza.getPercorsi().size(); i++){
 
