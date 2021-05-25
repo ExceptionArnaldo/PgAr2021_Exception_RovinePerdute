@@ -34,4 +34,5 @@ public class Costante {
     public static final String HTTPS_FORMATTAZIONE = "{https://xml.apache.org/xslt}indent-amount";
     public static final String LIVELLO_INDENTAZIONE = "2";
     public static final String DICHIARAZIONE_FORMATTAZIONE = "yes";
+    public static final String FILE_ROUTES = "Routes.xml";
 }

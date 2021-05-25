@@ -2,6 +2,7 @@ package it.unibs.fp.rovineperdute;
 
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.stream.*;
@@ -15,10 +16,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Classe per la lettura e la scrittura di file Xml.
+ */
 public class Xml {
 
     /**
      * legge un file xml e salva i dati delle citta in un ArrayList di tipo citta.
+     * Il link alle altre citta viene preimpostato a 0.
      *
      * @param nome_file nome del file
      * @param citta     ArrayList di citta da popolare
@@ -28,20 +33,40 @@ public class Xml {
         XMLInputFactory xmlif;
         XMLStreamReader xmlr;
 
-        String nome = null;
+        int id;
+        String nome;
         Punto coordinata;
-        int id = Costante.C0;
-        HashMap<Integer, Integer> percorso = null;
+        HashMap<Integer, Integer> percorso;
 
         try {
             xmlif = XMLInputFactory.newInstance();
             xmlr = xmlif.createXMLStreamReader(nome_file, new FileInputStream(nome_file));
 
             while (xmlr.hasNext()) {
-                if (xmlr.getEventType() == XMLStreamConstants.START_ELEMENT) {
-                    if (xmlr.getLocalName().equals(Costante.CITTA)) { //interessano solo i dati relativi alle citta
-                        percorso = new HashMap<>();
-                        coordinata = new Punto();
+                if (xmlr.getEventType() == XMLStreamConstants.START_ELEMENT && xmlr.getLocalName().equals(Costante.CITTA)) { //interessano solo i dati relativi alle citta
+                    //if (xmlr.getLocalName().equals(Costante.CITTA)) { //interessano solo i dati relativi alle citta
+                    percorso = new HashMap<>();
+                    coordinata = new Punto();
+
+                    id = Integer.parseInt(xmlr.getAttributeValue(0));
+                    nome = xmlr.getAttributeValue(1);
+                    coordinata.setX(Integer.parseInt(xmlr.getAttributeValue(2)));
+                    coordinata.setY(Integer.parseInt(xmlr.getAttributeValue(3)));
+                    coordinata.setZ(Integer.parseInt(xmlr.getAttributeValue(4)));
+
+                    citta.add(new Citta(id, nome, coordinata)); //ottenuti tutti i valori dell'xml di una citta. Creazione citta senza link
+
+                    xmlr.nextTag();
+
+                    while ((xmlr.getEventType() == XMLStreamConstants.START_ELEMENT)) { // salvataggio link
+                        percorso.put(Integer.parseInt(xmlr.getAttributeValue(Costante.C0)), Costante.C0); // peso impostato a 0
+                        xmlr.nextTag();
+                        xmlr.nextTag();
+                    }
+
+                    citta.get(citta.size() - Costante.C1).setPercorsi(percorso); // finiti i link si aggiorna la citta
+
+                        /*
                         for (int i = Costante.C0; i < xmlr.getAttributeCount(); i++) {
                             switch (xmlr.getAttributeLocalName(i)) {
                                 case Costante.ID:
@@ -63,9 +88,10 @@ public class Xml {
                             }
                         }
                     } else if (xmlr.getLocalName().equals(Costante.LINK)) { // salvataggio link
-                        percorso.put(Integer.parseInt(xmlr.getAttributeValue(Costante.C0)), Costante.C0);
-                        citta.get(citta.size() - Costante.C1).setPercorsi(percorso);
-                    }
+                        percorso.put(Integer.parseInt(xmlr.getAttributeValue(Costante.C0)), Costante.C0); // peso impostato a 0
+                        citta.get(citta.size() - Costante.C1).setPercorsi(percorso); // ad ogni link si aggiornano gli elementi per l'ultima citta nell'array
+                        */
+                    //    }
                 }
                 xmlr.next();
             }
@@ -93,8 +119,8 @@ public class Xml {
             xmlw.writeStartDocument(Costante.ENCODING, Costante.VERSION);
             xmlw.writeStartElement(Costante.ROUTES); // scrittura del tag radice Routes
 
-            stampaCodici(xmlw, Costante.TEAM_NOME1, team1); //scrittura team
-            stampaCodici(xmlw, Costante.TEAM_NOME2, team2);
+            scriviTeam(xmlw, team1); //scrittura team
+            scriviTeam(xmlw, team2);
 
             xmlw.writeEndElement(); // chiusura di </routes>
             xmlw.writeEndDocument(); // scrittura della fine del documento
@@ -108,9 +134,9 @@ public class Xml {
         }
     }
 
-    private static void stampaCodici(XMLStreamWriter xmlw, String nome, Team team) throws XMLStreamException {
-        xmlw.writeStartElement(Costante.ROUTE);
-        xmlw.writeAttribute(Costante.TEAM, nome);
+    private static void scriviTeam(XMLStreamWriter xmlw, Team team) throws XMLStreamException {
+        xmlw.writeStartElement(Costante.ROUTE); // apertura del tag <route>
+        xmlw.writeAttribute(Costante.TEAM, team.getVeicolo());
         xmlw.writeAttribute(Costante.COSTO, Integer.toString(team.getCarburante()));
         xmlw.writeAttribute(Costante.NUMERO_CITTA, Integer.toString(team.getPercorso().size()));
 
