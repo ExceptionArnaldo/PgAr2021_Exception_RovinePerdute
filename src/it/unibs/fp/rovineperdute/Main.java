@@ -26,7 +26,7 @@ public class Main {
 
          */
 
-        HashMap<Integer, Integer> percorsi1 = new HashMap<>();
+        /*HashMap<Integer, Integer> percorsi1 = new HashMap<>();
         percorsi1.put(1, 0);
         percorsi1.put(3, 0);
         Citta campo_base = new Citta(0, "campo base", new Punto(8279, 8338, 2745), percorsi1);
@@ -60,21 +60,19 @@ public class Main {
         citta.add(tikal);
         citta.add(teotiguacan);
         citta.add(mixco_vieio);
-        citta.add(rovine_perdute);
+        citta.add(rovine_perdute);*/
 
         Team team1 = new Team("a", Costante.TEAM_NOME1);
         Team team2 = new Team("b", Costante.TEAM_NOME2);
 
+        Xml.leggiCitta("test_file/PgAr_Map_5.xml", citta);
+        Rovina rovina = new Rovina(citta);
+
         Citta.calcolaPesoPercorso(citta, team1);
         team1.calcolaPercorsoMinimo(citta);
 
-        Citta.calcolaPesoPercorso(citta, team2);
-        team2.calcolaPercorsoMinimo(citta);
-
-        Xml.leggiCitta("test_file/PgAr_Map_5.xml", citta);
-
-        for (int i = 0; i < citta.size(); i++)
-            System.out.println(citta.get(i).toString());
+        /*for (int i = 0; i < citta.size(); i++)
+            System.out.println(citta.get(i).toString());*/
 
     }
 }

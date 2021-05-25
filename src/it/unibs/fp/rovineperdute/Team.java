@@ -1,8 +1,6 @@
 package it.unibs.fp.rovineperdute;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Team {
 
@@ -10,6 +8,9 @@ public class Team {
     private String veicolo;
     private int carburante;
     private ArrayList<Citta> percorso = new ArrayList<>();
+
+    HashMap<Integer, Citta> percorso_minimo = new HashMap<>();
+    int id = -1;
 
     public Team(String nome, String veicolo) {
         this.nome = nome;
@@ -32,21 +33,6 @@ public class Team {
         this.veicolo = veicolo;
     }
 
-    public void calcolaPercorsoMinimo(ArrayList<Citta> citta) {
-
-        Citta citta_partenza = citta.get(0);
-        Citta citta_arrivo = citta.get(citta.size() - 1);
-
-        HashMap<Citta, Integer> percorso_minimo = new HashMap<>();
-
-        for (Citta nodo : citta) {
-            percorso_minimo.put(nodo, 0);
-        }
-
-        for (int i = 0; i < citta_partenza.getPercorsi().size(); i++) {
-        }
-    }
-
     public int getCarburante() {
         return carburante;
     }
@@ -61,5 +47,34 @@ public class Team {
 
     public void setPercorso(ArrayList<Citta> percorso) {
         this.percorso = percorso;
+    }
+
+
+    public void calcolaPercorsoMinimo(ArrayList<Citta> citta) {
+
+        Citta citta_partenza = citta.get(0);
+        Citta citta_arrivo = citta.get(citta.size() - 1);
+
+        for (Citta nodo : citta) {
+            percorso_minimo.put(nodo.getId(), new Citta());
+        }
+
+        Stack<Integer> figli = new Stack<>();
+        dfs(citta_partenza, figli);
+
+        System.out.println(figli);
+
+    }
+
+    public void dfs(Citta citta_partenza, Stack<Integer> figli){
+
+        citta_partenza.getPercorsi().forEach((key, value) -> {
+           if (key != id) figli.push(key);
+        });
+
+        id = citta_partenza.getId();
+
+        dfs(Citta.getCittaById(figli.peek()), figli);
+
     }
 }
