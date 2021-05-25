@@ -68,13 +68,15 @@ public class Team {
 
     public void dfs(Citta citta_partenza, Stack<Integer> figli){
 
-        citta_partenza.getPercorsi().forEach((key, value) -> {
-           if (key != id) figli.push(key);
-        });
-
-        id = citta_partenza.getId();
-
-        dfs(Citta.getCittaById(figli.peek()), figli);
-
+        if(Citta.getCittaById(id).getNome().equals("Rovine Perdute")){
+            dfs(Citta.getCittaById(figli.peek()), figli);
+        }
+        else {
+            citta_partenza.getPercorsi().forEach((key, value) -> {
+                if (key != id) figli.push(key);
+            });
+            id = citta_partenza.getId();
+            dfs(Citta.getCittaById(figli.peek()), figli);
+        }
     }
 }
