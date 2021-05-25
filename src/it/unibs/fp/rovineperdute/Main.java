@@ -5,9 +5,26 @@ import java.util.HashMap;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         ArrayList<Citta> citta = new ArrayList<>();
+
+        /*
+        Xml.leggiCitta("test_file/PgAr_Map_5.xml", citta); //Lettura dei documenti informativi
+
+        Team team1 = new Team("a", Costante.TEAM_NOME1); // si puo mettere in un metodo
+        Team team2 = new Team("b", Costante.TEAM_NOME2);
+
+        Citta.calcolaPesoPercorso(citta, team1); // Analisi dei dati sulle città
+        team1.calcolaPercorsoMinimo(citta);      // Calcolo percorso ottimale
+
+        Citta.calcolaPesoPercorso(citta, team2);
+        team2.calcolaPercorsoMinimo(citta);
+
+        Xml.scriviPercorso(Costante.FILE_ROUTES, team1, team2); // Scrittura del documento finale
+        Xml.formatXMLFile(Costante.FILE_ROUTES); // formattazione file
+
+         */
 
         HashMap<Integer, Integer> percorsi1 = new HashMap<>();
         percorsi1.put(1, 0);
@@ -45,8 +62,8 @@ public class Main {
         citta.add(mixco_vieio);
         citta.add(rovine_perdute);
 
-        Team team1 = new Team("a", "Tonatiuh");
-        Team team2 = new Team("b", "Metztli");
+        Team team1 = new Team("a", Costante.TEAM_NOME1);
+        Team team2 = new Team("b", Costante.TEAM_NOME2);
 
         Citta.calcolaPesoPercorso(citta, team1);
         team1.calcolaPercorsoMinimo(citta);
@@ -54,9 +71,9 @@ public class Main {
         Citta.calcolaPesoPercorso(citta, team2);
         team2.calcolaPercorsoMinimo(citta);
 
-        Xml.leggiCitta("PgAr_Map_5.xml", citta);
+        Xml.leggiCitta("test_file/PgAr_Map_5.xml", citta);
 
-        for(int i=0; i<citta.size();i++)
+        for (int i = 0; i < citta.size(); i++)
             System.out.println(citta.get(i).toString());
 
     }

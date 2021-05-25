@@ -11,7 +11,7 @@ public class Citta {
     private Punto coordinata;
     private HashMap<Integer, Integer> percorsi;
 
-    public Citta(int id, String nome, Punto coordinata){
+    public Citta(int id, String nome, Punto coordinata) {
         this.id = id;
         this.nome = nome;
         this.coordinata = coordinata;
