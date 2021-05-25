@@ -1,5 +1,7 @@
 package it.unibs.fp.rovineperdute;
 
+import javax.xml.stream.XMLStreamException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,10 +9,31 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        //lettura tutti file
+        /*for (int i = 0; i < Costante.FILE_INPUT_INDICE.length; i++) {
+
+            ArrayList<Citta> citta = new ArrayList<>();
+
+            Xml.leggiCitta(String.format(Costante.FILE_INPUT, Costante.FILE_INPUT_INDICE[i]), citta); //Lettura dei documenti informativi
+
+            Team team1 = new Team("a", Costante.TEAM_NOME1); // si puo mettere in un metodo
+            Team team2 = new Team("b", Costante.TEAM_NOME2);
+
+            Citta.calcolaPesoPercorso(citta, team1); // Analisi dei dati sulle città
+            team1.calcolaPercorsoMinimo(citta);      // Calcolo percorso ottimale
+
+            Citta.calcolaPesoPercorso(citta, team2);
+            team2.calcolaPercorsoMinimo(citta);
+
+            Xml.scriviPercorso(String.format(Costante.FILE_ROUTES, Costante.FILE_INPUT_INDICE[i]), team1, team2); // Scrittura del documento finale
+            Xml.formatXMLFile(String.format(Costante.FILE_ROUTES, Costante.FILE_INPUT_INDICE[i])); // formattazione file
+        }*/
+
+
         ArrayList<Citta> citta = new ArrayList<>();
 
-        /*
-        Xml.leggiCitta("test_file/PgAr_Map_5.xml", citta); //Lettura dei documenti informativi
+        //lettura singolo file
+        Xml.leggiCitta("./percorsi/file_input/PgAr_Map_5.xml", citta); //Lettura dei documenti informativi
 
         Team team1 = new Team("a", Costante.TEAM_NOME1); // si puo mettere in un metodo
         Team team2 = new Team("b", Costante.TEAM_NOME2);
@@ -24,9 +47,8 @@ public class Main {
         Xml.scriviPercorso(Costante.FILE_ROUTES, team1, team2); // Scrittura del documento finale
         Xml.formatXMLFile(Costante.FILE_ROUTES); // formattazione file
 
-         */
-
-        /*HashMap<Integer, Integer> percorsi1 = new HashMap<>();
+/*
+        HashMap<Integer, Integer> percorsi1 = new HashMap<>();
         percorsi1.put(1, 0);
         percorsi1.put(3, 0);
         Citta campo_base = new Citta(0, "campo base", new Punto(8279, 8338, 2745), percorsi1);
@@ -60,19 +82,21 @@ public class Main {
         citta.add(tikal);
         citta.add(teotiguacan);
         citta.add(mixco_vieio);
-        citta.add(rovine_perdute);*/
+        citta.add(rovine_perdute);
 
         Team team1 = new Team("a", Costante.TEAM_NOME1);
         Team team2 = new Team("b", Costante.TEAM_NOME2);
 
-        Xml.leggiCitta("test_file/PgAr_Map_5.xml", citta);
-        Rovina rovina = new Rovina(citta);
-
         Citta.calcolaPesoPercorso(citta, team1);
         team1.calcolaPercorsoMinimo(citta);
 
-        /*for (int i = 0; i < citta.size(); i++)
-            System.out.println(citta.get(i).toString());*/
+        Citta.calcolaPesoPercorso(citta, team2);
+        team2.calcolaPercorsoMinimo(citta);
 
+        Xml.leggiCitta("./percorsi/file_input/PgAr_Map_5.xml", citta);
+
+        for (int i = 0; i < citta.size(); i++)
+            System.out.println(citta.get(i).toString());
+ */
     }
 }
