@@ -33,10 +33,33 @@ public class Main {
         ArrayList<Citta> citta = new ArrayList<>();
 
         //lettura singolo file
-        Xml.leggiCitta("./percorsi/file_input/PgAr_Map_5.xml", citta); //Lettura dei documenti informativi
+        Xml.leggiCitta("./percorsi/file_input/PgAr_Map_12.xml", citta); //Lettura dei documenti informativi
+
+
+
 
         Team team1 = new Team("a", Costante.TEAM_NOME1); // si puo mettere in un metodo
         Team team2 = new Team("b", Costante.TEAM_NOME2);
+
+        Rovina rovina = new Rovina(citta);
+        Citta.calcolaPesoPercorso(team1);
+
+
+        team1.algoritmo(citta.get(0));
+
+        for(int i = 0; i< 5; i++){
+            System.out.println(citta.get(i).getPercorsi());
+        }
+
+        for(int i = 0; i < citta.size(); i++){
+            System.out.println("distanza: " + team1.getDistanza()[i] + " citta pre: " + team1.getCitta_precedenti()[i]);
+        }
+
+        team2.algoritmo(citta.get(0));
+
+        for(int i = 0; i < citta.size(); i++){
+            System.out.println("distanza: " + team1.getDistanza()[i] + " citta pre: " + team1.getCitta_precedenti()[i]);
+        }
 
         //Citta.calcolaPesoPercorso(citta, team1); // Analisi dei dati sulle città
         //team1.calcolaPercorsoMinimo(citta);      // Calcolo percorso ottimale
@@ -44,8 +67,8 @@ public class Main {
         //Citta.calcolaPesoPercorso(citta, team2);
         //team2.calcolaPercorsoMinimo(citta);
 
-        Xml.scriviPercorso(Costante.FILE_ROUTES, team1, team2); // Scrittura del documento finale
-        Xml.formatXMLFile(Costante.FILE_ROUTES); // formattazione file
+        //Xml.scriviPercorso(Costante.FILE_ROUTES, team1, team2); // Scrittura del documento finale
+        //Xml.formatXMLFile(Costante.FILE_ROUTES); // formattazione file
 
 /*
         HashMap<Integer, Integer> percorsi1 = new HashMap<>();

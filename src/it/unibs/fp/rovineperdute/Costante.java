@@ -20,7 +20,7 @@ public class Costante {
     public static final String ROUTES = "routes";
     public static final String ROUTE = "route";
     public static final String TEAM = "team";
-    public static final String TEAM_NOME1 = "Tonathiu";
+    public static final String TEAM_NOME1 = "Tonatiuh";
     public static final String TEAM_NOME2 = "Metztli";
 
     public static final String COSTO = "cost";

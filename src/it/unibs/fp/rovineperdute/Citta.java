@@ -4,19 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 // nodo
-public class Citta {
+public class Citta{
 
     private int id;
     private String nome;
     private Punto coordinata;
-    private HashMap<Integer, Integer> percorsi;
+    private HashMap<Integer, Double> percorsi;
 
-    private int costo;
-    private Citta citta_pre;
-    private boolean verificato = false;
-
-    public Citta() {
-    }
+    private double costo = Double.POSITIVE_INFINITY;
+    private Citta citta_pre = null;
+    private boolean visitato = false;
 
     public Citta(int id, String nome, Punto coordinata) {
         this.id = id;
@@ -24,11 +21,15 @@ public class Citta {
         this.coordinata = coordinata;
     }
 
-    public Citta(int id, String nome, Punto coordinata, HashMap<Integer, Integer> percorsi) {
+    public Citta(int id, String nome, Punto coordinata, HashMap<Integer, Double> percorsi) {
         this.id = id;
         this.nome = nome;
         this.coordinata = coordinata;
         this.percorsi = percorsi;
+    }
+
+    public Citta() {
+
     }
 
     public int getId() {
@@ -55,19 +56,19 @@ public class Citta {
         this.coordinata = coordinata;
     }
 
-    public HashMap<Integer, Integer> getPercorsi() {
+    public HashMap<Integer, Double> getPercorsi() {
         return percorsi;
     }
 
-    public void setPercorsi(HashMap<Integer, Integer> percorsi) {
+    public void setPercorsi(HashMap<Integer, Double> percorsi) {
         this.percorsi = percorsi;
     }
 
-    public int getCosto() {
+    public double getCosto() {
         return costo;
     }
 
-    public void setCosto(int costo) {
+    public void setCosto(double costo) {
         this.costo = costo;
     }
 
@@ -79,7 +80,15 @@ public class Citta {
         this.citta_pre = citta_pre;
     }
 
-    public static void calcolaPesoPercorso(ArrayList<Citta> citta, Team team) {
+    public boolean isVisitato() {
+        return visitato;
+    }
+
+    public void setVisitato(boolean visitato) {
+        this.visitato = visitato;
+    }
+
+    public static void calcolaPesoPercorso(Team team) {
         switch (team.getVeicolo()) {
 
             case "Tonatiuh": {
@@ -87,12 +96,11 @@ public class Citta {
                     Citta citta_partenza = Rovina.getRovina().get(i);
 
                     citta_partenza.percorsi.forEach((key, value) -> {
-                        int peso = 0;
+                        double peso = 0;
                         Citta citta_arrivo = getCittaById(key);
 
-                        peso = (int) Math.sqrt(Math.pow(citta_arrivo.coordinata.getX() - citta_partenza.coordinata.getX(), 2) + Math.pow(citta_arrivo.coordinata.getY() - citta_partenza.coordinata.getY(), 2));
+                        peso = Math.sqrt(Math.pow(citta_arrivo.coordinata.getX() - citta_partenza.coordinata.getX(), 2) + Math.pow(citta_arrivo.coordinata.getY() - citta_partenza.coordinata.getY(), 2));
                         citta_partenza.percorsi.replace(key, peso);
-                        System.out.println("citta partenza: " + citta_partenza.nome + ", citta arrivo" + citta_arrivo.nome + "key: " + key + " value: " + peso);
                     });
                 }
                 break;
@@ -102,7 +110,7 @@ public class Citta {
                 for (int i = 0; i < Rovina.getRovina().size(); i++) {
                     Citta citta_partenza = Rovina.getRovina().get(i);
                     citta_partenza.percorsi.forEach((key, value) -> {
-                        int peso;
+                        double peso;
                         Citta citta_arrivo = getCittaById(key);
 
                         peso = Math.abs(citta_partenza.coordinata.getZ() - citta_arrivo.coordinata.getZ());
@@ -125,6 +133,7 @@ public class Citta {
 
         return citta_cercato;
     }
+
 
     @Override
     public String toString() {

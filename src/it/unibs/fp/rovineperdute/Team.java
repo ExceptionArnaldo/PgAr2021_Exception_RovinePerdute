@@ -9,8 +9,9 @@ public class Team {
     private int carburante;
     private ArrayList<Citta> percorso = new ArrayList<>();
 
-    HashMap<Integer, Citta> percorso_minimo = new HashMap<>();
-    int id = -1;
+    private double distanza[];
+    private int citta_precedenti[];
+    boolean visitato[];
 
     public Team(String nome, String veicolo) {
         this.nome = nome;
@@ -49,34 +50,72 @@ public class Team {
         this.percorso = percorso;
     }
 
-
-    public void calcolaPercorsoMinimo(ArrayList<Citta> citta) {
-
-        Citta citta_partenza = citta.get(0);
-        Citta citta_arrivo = citta.get(citta.size() - 1);
-
-        for (Citta nodo : citta) {
-            percorso_minimo.put(nodo.getId(), new Citta());
-        }
-
-        Stack<Integer> figli = new Stack<>();
-        dfs(citta_partenza, figli);
-
-        System.out.println(figli);
-
+    public double[] getDistanza() {
+        return distanza;
     }
 
-    public void dfs(Citta citta_partenza, Stack<Integer> figli){
+    public void setDistanza(double[] distanza) {
+        this.distanza = distanza;
+    }
 
-        if(Citta.getCittaById(id).getNome().equals("Rovine Perdute")){
-            dfs(Citta.getCittaById(figli.peek()), figli);
+    public int[] getCitta_precedenti() {
+        return citta_precedenti;
+    }
+
+    public void setCitta_precedenti(int[] citta_precedenti) {
+        this.citta_precedenti = citta_precedenti;
+    }
+
+    public void algoritmo(Citta citta_partenza) {
+
+        int numero_citta = Rovina.getRovina().size();
+        distanza = new double[numero_citta];
+        citta_precedenti = new int[numero_citta];
+        visitato = new boolean[numero_citta];
+
+        ArrayList <Citta> citta = new ArrayList(Rovina.getRovina());
+
+        for (int i = 0; i < numero_citta; i++) {
+            distanza[i] = Double.POSITIVE_INFINITY;
+            citta_precedenti[i] = -1;
+            visitato[i] = false;
         }
-        else {
-            citta_partenza.getPercorsi().forEach((key, value) -> {
-                if (key != id) figli.push(key);
-            });
-            id = citta_partenza.getId();
-            dfs(Citta.getCittaById(figli.peek()), figli);
+
+        distanza[citta_partenza.getId()] = 0;
+
+        for(int i = 0; i < numero_citta; i++){
+            int id_attuale = distanzaPiuBreve();
+
+            visitato[id_attuale] = true;
+            for(int j = 0; j < numero_citta; j++){
+                if(!visitato[j] &&
+                        citta.get(id_attuale).getPercorsi().containsKey(j) &&
+                        citta.get(id_attuale).getPercorsi().get(j) !=0 &&
+                        !Double.isInfinite(distanza[id_attuale]) &&
+                        (distanza[id_attuale] + citta.get(id_attuale).getPercorsi().get(j)) < distanza[j]){
+
+                    distanza[j] = distanza[id_attuale] + citta.get(id_attuale).getPercorsi().get(j);
+                    citta_precedenti[j] = id_attuale;
+
+                }
+            }
         }
     }
+
+    public int distanzaPiuBreve() {
+
+        double min = Double.POSITIVE_INFINITY;
+        int pos = -1;
+
+        for (int i = 0; i < distanza.length; i++) {
+            if (distanza[i] <= min && visitato[i] == false) {
+                min = distanza[i];
+                pos = i;
+            }
+
+        }
+        return pos;
+    }
+
+
 }

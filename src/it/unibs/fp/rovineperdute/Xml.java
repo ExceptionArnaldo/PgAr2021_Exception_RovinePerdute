@@ -36,7 +36,7 @@ public class Xml {
         int id;
         String nome;
         Punto coordinata;
-        HashMap<Integer, Integer> percorso;
+        HashMap<Integer, Double> percorso;
 
         try {
             xmlif = XMLInputFactory.newInstance();
@@ -59,7 +59,7 @@ public class Xml {
                     xmlr.nextTag();
 
                     while ((xmlr.getEventType() == XMLStreamConstants.START_ELEMENT)) { // salvataggio link
-                        percorso.put(Integer.parseInt(xmlr.getAttributeValue(Costante.C0)), Costante.C0); // peso impostato a 0
+                        percorso.put(Integer.parseInt(xmlr.getAttributeValue(Costante.C0)), 0.0); // peso impostato a 0
                         xmlr.nextTag();
                         xmlr.nextTag();
                     }
