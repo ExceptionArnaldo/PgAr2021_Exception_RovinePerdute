@@ -55,10 +55,11 @@ public class Main {
             System.out.println("distanza: " + team1.getDistanza()[i] + " citta pre: " + team1.getCitta_precedenti()[i]);
         }
 
+        Citta.calcolaPesoPercorso(team2);
         team2.algoritmo(citta.get(0));
 
         for(int i = 0; i < citta.size(); i++){
-            System.out.println("distanza: " + team1.getDistanza()[i] + " citta pre: " + team1.getCitta_precedenti()[i]);
+            System.out.println("distanza: " + team2.getDistanza()[i] + " citta pre: " + team2.getCitta_precedenti()[i]);
         }
 
         //Citta.calcolaPesoPercorso(citta, team1); // Analisi dei dati sulle città
