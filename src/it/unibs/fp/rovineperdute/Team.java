@@ -13,6 +13,8 @@ public class Team {
     private int citta_precedenti[];
     boolean visitato[];
 
+    private Stack<Integer> percorso_minimo = new Stack<>();
+
     public Team(String nome, String veicolo) {
         this.nome = nome;
         this.veicolo = veicolo;
@@ -100,6 +102,8 @@ public class Team {
                 }
             }
         }
+
+        setPercorsoMinimo();
     }
 
     public int distanzaPiuBreve() {
@@ -115,6 +119,20 @@ public class Team {
 
         }
         return pos;
+    }
+
+    public void setPercorsoMinimo(){
+        int indice = citta_precedenti.length - 1;
+
+        percorso_minimo.push(indice);
+
+        while(citta_precedenti[indice] != -1){
+            percorso_minimo.push(citta_precedenti[indice]);
+            indice = citta_precedenti[indice];
+        }
+
+        System.out.println(percorso_minimo);
+
     }
 
 }

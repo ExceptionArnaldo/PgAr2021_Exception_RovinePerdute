@@ -33,7 +33,7 @@ public class Main {
         ArrayList<Citta> citta = new ArrayList<>();
 
         //lettura singolo file
-        Xml.leggiCitta("./percorsi/file_input/PgAr_Map_12.xml", citta); //Lettura dei documenti informativi
+        Xml.leggiCitta("./percorsi/file_input/PgAr_Map_5.xml", citta); //Lettura dei documenti informativi
 
 
 
@@ -47,9 +47,9 @@ public class Main {
 
         team1.algoritmo(citta.get(0));
 
-        for(int i = 0; i< 5; i++){
+        /*for(int i = 0; i< 5; i++){
             System.out.println(citta.get(i).getPercorsi());
-        }
+        }*/
 
         for(int i = 0; i < citta.size(); i++){
             System.out.println("distanza: " + team1.getDistanza()[i] + " citta pre: " + team1.getCitta_precedenti()[i]);

@@ -11,10 +11,6 @@ public class Citta{
     private Punto coordinata;
     private HashMap<Integer, Double> percorsi;
 
-    private double costo = Double.POSITIVE_INFINITY;
-    private Citta citta_pre = null;
-    private boolean visitato = false;
-
     public Citta(int id, String nome, Punto coordinata) {
         this.id = id;
         this.nome = nome;
@@ -64,30 +60,6 @@ public class Citta{
         this.percorsi = percorsi;
     }
 
-    public double getCosto() {
-        return costo;
-    }
-
-    public void setCosto(double costo) {
-        this.costo = costo;
-    }
-
-    public Citta getCitta_pre() {
-        return citta_pre;
-    }
-
-    public void setCitta_pre(Citta citta_pre) {
-        this.citta_pre = citta_pre;
-    }
-
-    public boolean isVisitato() {
-        return visitato;
-    }
-
-    public void setVisitato(boolean visitato) {
-        this.visitato = visitato;
-    }
-
     public static void calcolaPesoPercorso(Team team) {
         switch (team.getVeicolo()) {
 
@@ -133,7 +105,6 @@ public class Citta{
 
         return citta_cercato;
     }
-
 
     @Override
     public String toString() {
