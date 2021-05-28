@@ -2,7 +2,6 @@ package it.unibs.fp.rovineperdute;
 
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.stream.*;
@@ -44,13 +43,12 @@ public class Xml {
 
             while (xmlr.hasNext()) {
                 if (xmlr.getEventType() == XMLStreamConstants.START_ELEMENT && xmlr.getLocalName().equals(Costante.CITTA)) { //interessano solo i dati relativi alle citta
-                    //if (xmlr.getLocalName().equals(Costante.CITTA)) { //interessano solo i dati relativi alle citta
                     percorso = new HashMap<>();
                     coordinata = new Punto();
 
-                    id = Integer.parseInt(xmlr.getAttributeValue(0));
-                    nome = xmlr.getAttributeValue(1);
-                    coordinata.setX(Integer.parseInt(xmlr.getAttributeValue(2)));
+                    id = Integer.parseInt(xmlr.getAttributeValue(0)); // get ID
+                    nome = xmlr.getAttributeValue(1); // get nome
+                    coordinata.setX(Integer.parseInt(xmlr.getAttributeValue(2))); //get coordinate
                     coordinata.setY(Integer.parseInt(xmlr.getAttributeValue(3)));
                     coordinata.setZ(Integer.parseInt(xmlr.getAttributeValue(4)));
 
@@ -109,14 +107,14 @@ public class Xml {
 
     private static void scriviTeam(XMLStreamWriter xmlw, Team team) throws XMLStreamException {
         xmlw.writeStartElement(Costante.ROUTE); // apertura del tag <route>
-        xmlw.writeAttribute(Costante.TEAM, team.getVeicolo());
-        xmlw.writeAttribute(Costante.COSTO, String.format(Costante.FORMAT, team.getCarburante_tot()));
-        xmlw.writeAttribute(Costante.NUMERO_CITTA, Integer.toString(team.getPercorso_minimo().size()));
+        xmlw.writeAttribute(Costante.TEAM, team.getVeicolo()); // scrittura attributo veicolo
+        xmlw.writeAttribute(Costante.COSTO, String.format(Costante.FORMAT, team.getCarburante_tot())); // scrittura attributo carburante
+        xmlw.writeAttribute(Costante.NUMERO_CITTA, Integer.toString(team.getPercorso_minimo().size())); // scrittura attributo numero citta percorse
 
         for (int i = team.getPercorso_minimo().size() - Costante.C1; i >= Costante.C0; i--) {
             xmlw.writeStartElement(Costante.CITTA); // apertura del tag <city>
             xmlw.writeAttribute(Costante.ID, Integer.toString(team.getPercorso_minimo().get(i).getId())); // attributo id
-            xmlw.writeAttribute(Costante.NOME, team.getPercorso_minimo().get(i).getNome());
+            xmlw.writeAttribute(Costante.NOME, team.getPercorso_minimo().get(i).getNome()); // attributo nome
             xmlw.writeEndElement(); // chiusura di </city>
         }
         xmlw.writeEndElement(); // chiusura di </route>
