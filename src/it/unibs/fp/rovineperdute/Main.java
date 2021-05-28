@@ -7,27 +7,28 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         //lettura tutti file
-        /*for (int i = 0; i < Costante.FILE_INPUT_INDICE.length; i++) {
+        for (int i = 0; i < Costante.FILE_INPUT_INDICE.length; i++) {
 
             ArrayList<Citta> citta = new ArrayList<>();
 
             Xml.leggiCitta(String.format(Costante.FILE_INPUT, Costante.FILE_INPUT_INDICE[i]), citta); //Lettura dei documenti informativi
 
-            Team team1 = new Team("a", Costante.TEAM_NOME1); // si puo mettere in un metodo
-            Team team2 = new Team("b", Costante.TEAM_NOME2);
+            Team team1 = new Team(Costante.TEAM_NOME1); // si puo mettere in un metodo
+            Team team2 = new Team(Costante.TEAM_NOME2);
 
-            Citta.calcolaPesoPercorso(citta, team1); // Analisi dei dati sulle città
-            team1.calcolaPercorsoMinimo(citta);      // Calcolo percorso ottimale
+            Rovina rovina = new Rovina(citta);
+            Citta.calcolaPesoPercorso(team1);
+            team1.dijkstra(citta.get(0));
+            //System.out.println(team1.getCarburante_tot());
 
-            Citta.calcolaPesoPercorso(citta, team2);
-            team2.calcolaPercorsoMinimo(citta);
+            Citta.calcolaPesoPercorso(team2);
+            team2.dijkstra(citta.get(0));
+            //System.out.println(team2.getCarburante_tot());
 
-            Xml.scriviPercorso(String.format(Costante.FILE_ROUTES, Costante.FILE_INPUT_INDICE[i]), team1, team2); // Scrittura del documento finale
-            Xml.formatXMLFile(String.format(Costante.FILE_ROUTES, Costante.FILE_INPUT_INDICE[i])); // formattazione file
-        }*/
+            Xml.scriviPercorso(String.format(Costante.FILE_OUTPUT, Costante.FILE_INPUT_INDICE[i]), team1, team2); // Scrittura del documento finale
+            Xml.formatXMLFile(String.format(Costante.FILE_OUTPUT, Costante.FILE_INPUT_INDICE[i])); // formattazione file
 
-        System.out.println(Utente.scegliFile());
-
+/*
         ArrayList<Citta> citta = new ArrayList<>();
 
         //lettura singolo file
@@ -46,7 +47,7 @@ public class Main {
         team1.dijkstra(citta.get(0));
 
         System.out.println(team1.getCarburante_tot());
-
+*/
         /*for(int i = 0; i< 5; i++){
             System.out.println(citta.get(i).getPercorsi());
         }*/
@@ -54,12 +55,12 @@ public class Main {
         /*for(int i = 0; i < citta.size(); i++){
             System.out.println("distanza: " + team1.getDistanza()[i] + " citta pre: " + team1.getCitta_precedenti()[i]);
         }*/
-
+/*
         Citta.calcolaPesoPercorso(team2);
         team2.dijkstra(citta.get(0));
 
         System.out.println(team2.getCarburante_tot());
-
+*/
         /*for(int i = 0; i < citta.size(); i++){
             System.out.println("distanza: " + team2.getDistanza()[i] + " citta pre: " + team2.getCitta_precedenti()[i]);
         }*/
@@ -70,8 +71,8 @@ public class Main {
         //Citta.calcolaPesoPercorso(citta, team2);
         //team2.calcolaPercorsoMinimo(citta);
 
-        //Xml.scriviPercorso(Costante.FILE_ROUTES, team1, team2); // Scrittura del documento finale
-        //Xml.formatXMLFile(Costante.FILE_ROUTES); // formattazione file
+        //Xml.scriviPercorso("./percorsi/file_output/PgAr_Map_5.xml", team1, team2); // Scrittura del documento finale
+        //Xml.formatXMLFile("./percorsi/file_output/PgAr_Map_5.xml"); // formattazione file
 
 /*
         HashMap<Integer, Integer> percorsi1 = new HashMap<>();
