@@ -1,72 +1,99 @@
 package it.unibs.fp.rovineperdute;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-// nodo
-public class Citta{
+/**
+ * Classe Citta, rappresenta i nodi.
+ */
+public class Citta {
 
     private int id;
     private String nome;
     private Punto coordinata;
     private HashMap<Integer, Double> percorsi;
 
+    /**
+     * Istanzia una nuova Citta.
+     *
+     * @param id         id
+     * @param nome       nome
+     * @param coordinata coordinata
+     */
     public Citta(int id, String nome, Punto coordinata) {
         this.id = id;
         this.nome = nome;
         this.coordinata = coordinata;
     }
 
-    public Citta(int id, String nome, Punto coordinata, HashMap<Integer, Double> percorsi) {
-        this.id = id;
-        this.nome = nome;
-        this.coordinata = coordinata;
-        this.percorsi = percorsi;
-    }
-
-    public Citta() {
-
-    }
-
+    /**
+     * Get id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Set id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Get nome.
+     *
+     * @return the nome
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Get percorsi.
+     *
+     * @return the percorsi
+     */
     public HashMap<Integer, Double> getPercorsi() {
         return percorsi;
     }
 
+    /**
+     * Set percorsi.
+     *
+     * @param percorsi the percorsi
+     */
     public void setPercorsi(HashMap<Integer, Double> percorsi) {
         this.percorsi = percorsi;
     }
 
+    /**
+     * Calcola peso percorso in base al team.
+     *
+     * @param team il team
+     */
     public static void calcolaPesoPercorso(Team team) {
         switch (team.getVeicolo()) {
 
-            case "Tonatiuh": {
+            case Costante.TEAM_NOME1: {
                 for (int i = 0; i < Rovina.getRovina().size(); i++) {
                     Citta citta_partenza = Rovina.getRovina().get(i);
 
                     citta_partenza.percorsi.forEach((key, value) -> {
-                        double peso = 0;
+                        double peso;
                         Citta citta_arrivo = getCittaById(key);
 
-                        peso = Math.sqrt(Math.pow(citta_arrivo.coordinata.getX() - citta_partenza.coordinata.getX(), 2) + Math.pow(citta_arrivo.coordinata.getY() - citta_partenza.coordinata.getY(), 2));
+                        peso = Math.sqrt(Math.pow(citta_arrivo.coordinata.getX() - citta_partenza.coordinata.getX(), Costante.C2) + Math.pow(citta_arrivo.coordinata.getY() - citta_partenza.coordinata.getY(), Costante.C2));
                         citta_partenza.percorsi.replace(key, peso);
                     });
                 }
                 break;
             }
 
-            case "Metztli": {
+            case Costante.TEAM_NOME2: {
                 for (int i = 0; i < Rovina.getRovina().size(); i++) {
                     Citta citta_partenza = Rovina.getRovina().get(i);
                     citta_partenza.percorsi.forEach((key, value) -> {
@@ -82,6 +109,12 @@ public class Citta{
         }
     }
 
+    /**
+     * Get citta by id.
+     *
+     * @param id_da_cercare id da cercare
+     * @return citta by id
+     */
     public static Citta getCittaById(int id_da_cercare) {
 
         Citta citta_cercato = null;
@@ -92,15 +125,5 @@ public class Citta{
         }
 
         return citta_cercato;
-    }
-
-    @Override
-    public String toString() {
-        return "Citta{" +
-                "ID=" + id +
-                ", nome='" + nome + '\'' +
-                ", coordinata=" + coordinata +
-                ", percorso=" + percorsi +
-                '}';
     }
 }

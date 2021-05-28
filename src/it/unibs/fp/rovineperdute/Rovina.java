@@ -2,28 +2,28 @@ package it.unibs.fp.rovineperdute;
 
 import java.util.ArrayList;
 
-// grafo
+/**
+ * Il tipo Rovina, rappresenta il grafo.
+ */
 public class Rovina {
 
     private static ArrayList<Citta> rovina = new ArrayList<>();
 
-    public Rovina() {
-    }
-
+    /**
+     * Instantiates a new Rovina.
+     *
+     * @param rovina the rovina
+     */
     public Rovina(ArrayList<Citta> rovina) {
         this.rovina = rovina;
     }
 
+    /**
+     * Gets rovina.
+     *
+     * @return the rovina
+     */
     public static ArrayList<Citta> getRovina() {
         return rovina;
-    }
-
-    public void setRovina(ArrayList<Citta> rovina) {
-        this.rovina = rovina;
-    }
-
-    @Override
-    public String toString() {
-        return "Rovina{}";
     }
 }
