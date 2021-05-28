@@ -16,19 +16,11 @@ public class Team {
         return veicolo;
     }
 
-    public void setVeicolo(String veicolo) {
-        this.veicolo = veicolo;
-    }
-
     public Stack<Citta> getPercorso_minimo() {
         return percorso_minimo;
     }
 
-    public void setPercorso_minimo(Stack<Citta> percorso_minimo) {
-        this.percorso_minimo = percorso_minimo;
-    }
-
-    public void setCarburanteTotale(double distanza[]){
+    public void setCarburanteTotale(double [] distanza){
         this.carburante_tot = distanza[distanza.length-1];
     }
 
@@ -75,16 +67,22 @@ public class Team {
         setCarburanteTotale(distanza);
     }
 
-    public int distanzaPiuBreve(double distanza[], boolean visitato[]) {
+    public int distanzaPiuBreve(double [] distanza, boolean [] visitato) {
 
         double min = Double.POSITIVE_INFINITY;
         int pos = -1;
 
         for (int i = 0; i < distanza.length; i++) {
-            if (distanza[i] <= min && visitato[i] == false) {
+            if (distanza[i] <= min && !visitato[i]) {
                 min = distanza[i];
                 pos = i;
             }
+            /*else if(distanza[i] == min){
+                if(i >= pos){
+                    min = distanza[i];
+                    pos = i;
+                }
+            }*/
         }
 
         return pos;
@@ -101,7 +99,6 @@ public class Team {
             indice = citta_precedenti[indice];
         }
 
-        System.out.println(percorso_minimo);
     }
 
 }

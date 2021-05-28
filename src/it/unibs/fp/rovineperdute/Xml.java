@@ -65,33 +65,6 @@ public class Xml {
                     }
 
                     citta.get(citta.size() - Costante.C1).setPercorsi(percorso); // finiti i link si aggiorna la citta
-
-                        /*
-                        for (int i = Costante.C0; i < xmlr.getAttributeCount(); i++) {
-                            switch (xmlr.getAttributeLocalName(i)) {
-                                case Costante.ID:
-                                    id = Integer.parseInt(xmlr.getAttributeValue(i));
-                                    break;
-                                case Costante.NOME:
-                                    nome = xmlr.getAttributeValue(i);
-                                    break;
-                                case Costante.COORDINATAX:
-                                    coordinata.setX(Integer.parseInt(xmlr.getAttributeValue(i)));
-                                    break;
-                                case Costante.COORDINATAY:
-                                    coordinata.setY(Integer.parseInt(xmlr.getAttributeValue(i)));
-                                    break;
-                                case Costante.COORDINATAH:
-                                    coordinata.setZ(Integer.parseInt(xmlr.getAttributeValue(i)));
-                                    citta.add(new Citta(id, nome, coordinata)); //ottenuti tutti i valori dell'xml di una citta. Creazione citta senza link
-                                    break;
-                            }
-                        }
-                    } else if (xmlr.getLocalName().equals(Costante.LINK)) { // salvataggio link
-                        percorso.put(Integer.parseInt(xmlr.getAttributeValue(Costante.C0)), Costante.C0); // peso impostato a 0
-                        citta.get(citta.size() - Costante.C1).setPercorsi(percorso); // ad ogni link si aggiornano gli elementi per l'ultima citta nell'array
-                        */
-                    //    }
                 }
                 xmlr.next();
             }
@@ -119,8 +92,8 @@ public class Xml {
             xmlw.writeStartDocument(Costante.ENCODING, Costante.VERSION);
             xmlw.writeStartElement(Costante.ROUTES); // scrittura del tag radice Routes
 
-           /* scriviTeam(xmlw, team1); //scrittura team
-            scriviTeam(xmlw, team2);*/
+            scriviTeam(xmlw, team1); //scrittura team
+            scriviTeam(xmlw, team2);
 
             xmlw.writeEndElement(); // chiusura di </routes>
             xmlw.writeEndDocument(); // scrittura della fine del documento
@@ -134,7 +107,7 @@ public class Xml {
         }
     }
 
-    /*private static void scriviTeam(XMLStreamWriter xmlw, Team team) throws XMLStreamException {
+    private static void scriviTeam(XMLStreamWriter xmlw, Team team) throws XMLStreamException {
         xmlw.writeStartElement(Costante.ROUTE); // apertura del tag <route>
         xmlw.writeAttribute(Costante.TEAM, team.getVeicolo());
         xmlw.writeAttribute(Costante.COSTO, String.format(Costante.FORMAT, team.getCarburante_tot()));
@@ -147,7 +120,7 @@ public class Xml {
             xmlw.writeEndElement(); // chiusura di </city>
         }
         xmlw.writeEndElement(); // chiusura di </route>
-    }*/
+    }
 
     /**
      * Formatta file xml.

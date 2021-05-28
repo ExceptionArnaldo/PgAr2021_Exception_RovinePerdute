@@ -40,18 +40,6 @@ public class Citta{
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Punto getCoordinata() {
-        return coordinata;
-    }
-
-    public void setCoordinata(Punto coordinata) {
-        this.coordinata = coordinata;
-    }
-
     public HashMap<Integer, Double> getPercorsi() {
         return percorsi;
     }
