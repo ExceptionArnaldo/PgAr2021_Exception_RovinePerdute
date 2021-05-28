@@ -3,6 +3,7 @@ package it.unibs.fp.rovineperdute;
 public class Costante {
 
     public static final int C0 = 0;
+    public static final double C0_DOUBLE = 0.0;
     public static final int C1 = 1;
 
     // usati nella classe XML
@@ -27,6 +28,8 @@ public class Costante {
     public static final String NUMERO_CITTA = "cities";
     public static final String CITTA = "city";
 
+    public static final String FORMAT = "%.2f";
+
     public static final String ENCODING = "utf-8";
     public static final String VERSION = "1.0";
 
@@ -41,4 +44,5 @@ public class Costante {
     public static final String FILE_INPUT = "./percorsi/file_input/PgAr_Map_%d.xml";
     public static final String FILE_OUTPUT = "./percorsi/file_output/Routes_%d.xml";
     public static final String FILE_ROUTES = "./percorsi/file_output/Routes.xml";
+
 }

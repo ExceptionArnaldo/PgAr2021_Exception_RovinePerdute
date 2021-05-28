@@ -59,7 +59,7 @@ public class Xml {
                     xmlr.nextTag();
 
                     while ((xmlr.getEventType() == XMLStreamConstants.START_ELEMENT)) { // salvataggio link
-                        percorso.put(Integer.parseInt(xmlr.getAttributeValue(Costante.C0)), 0.0); // peso impostato a 0
+                        percorso.put(Integer.parseInt(xmlr.getAttributeValue(Costante.C0)), Costante.C0_DOUBLE); // peso impostato a 0
                         xmlr.nextTag();
                         xmlr.nextTag();
                     }
@@ -137,13 +137,13 @@ public class Xml {
     private static void scriviTeam(XMLStreamWriter xmlw, Team team) throws XMLStreamException {
         xmlw.writeStartElement(Costante.ROUTE); // apertura del tag <route>
         xmlw.writeAttribute(Costante.TEAM, team.getVeicolo());
-        xmlw.writeAttribute(Costante.COSTO, Integer.toString(team.getCarburante()));
-        xmlw.writeAttribute(Costante.NUMERO_CITTA, Integer.toString(team.getPercorso().size()));
+        xmlw.writeAttribute(Costante.COSTO, String.format(Costante.FORMAT, team.getCarburante_tot()));
+        xmlw.writeAttribute(Costante.NUMERO_CITTA, Integer.toString(team.getPercorso_minimo().size()));
 
-        for (int i = Costante.C0; i < team.getPercorso().size(); i++) {
+        for (int i = team.getPercorso_minimo().size() - Costante.C1; i >= Costante.C0; i--) {
             xmlw.writeStartElement(Costante.CITTA); // apertura del tag <city>
-            xmlw.writeAttribute(Costante.ID, Integer.toString(team.getPercorso().get(i).getId())); // attributo id
-            xmlw.writeAttribute(Costante.NOME, team.getPercorso().get(i).getNome());
+            xmlw.writeAttribute(Costante.ID, Integer.toString(team.getPercorso_minimo().get(i).getId())); // attributo id
+            xmlw.writeAttribute(Costante.NOME, team.getPercorso_minimo().get(i).getNome());
             xmlw.writeEndElement(); // chiusura di </city>
         }
         xmlw.writeEndElement(); // chiusura di </route>
