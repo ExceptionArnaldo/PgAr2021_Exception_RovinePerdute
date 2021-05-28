@@ -78,30 +78,31 @@ public class Citta {
     public static void calcolaPesoPercorso(Team team) {
         switch (team.getVeicolo()) {
 
-            case Costante.TEAM_NOME1: {
-                for (int i = 0; i < Rovina.getRovina().size(); i++) {
-                    Citta citta_partenza = Rovina.getRovina().get(i);
+            case Costante.TEAM_NOME1: { // caso di Tonathiu
+                for (int i = 0; i < Rovina.getRovina().size(); i++) { // scorre tutte le città del grafo
+                    Citta citta_partenza = Rovina.getRovina().get(i); // prende la città all'i-esimo posto
 
-                    citta_partenza.percorsi.forEach((key, value) -> {
-                        double peso;
-                        Citta citta_arrivo = getCittaById(key);
+                    citta_partenza.percorsi.forEach((key, value) -> { // per ogni citta va a scorrere i suoi percorsi(archi)
+                        double peso; // peso dell'arco
+                        Citta citta_arrivo = getCittaById(key); // citta di arrivo
 
-                        peso = Math.sqrt(Math.pow(citta_arrivo.coordinata.getX() - citta_partenza.coordinata.getX(), Costante.C2) + Math.pow(citta_arrivo.coordinata.getY() - citta_partenza.coordinata.getY(), Costante.C2));
-                        citta_partenza.percorsi.replace(key, peso);
+                        peso = Math.sqrt(Math.pow(citta_arrivo.coordinata.getX() - citta_partenza.coordinata.getX(), Costante.C2) + Math.pow(citta_arrivo.coordinata.getY() - citta_partenza.coordinata.getY(), Costante.C2)); // calcola il peso tra l edue cittò secondo la formula "distanza tra i due punti"
+                        citta_partenza.percorsi.replace(key, peso); // aggiorna il peso
                     });
                 }
                 break;
             }
 
-            case Costante.TEAM_NOME2: {
-                for (int i = 0; i < Rovina.getRovina().size(); i++) {
-                    Citta citta_partenza = Rovina.getRovina().get(i);
-                    citta_partenza.percorsi.forEach((key, value) -> {
-                        double peso;
-                        Citta citta_arrivo = getCittaById(key);
+            case Costante.TEAM_NOME2: { // caso di Metztli
+                for (int i = 0; i < Rovina.getRovina().size(); i++) { // scorre tutte le città del grafo
+                    Citta citta_partenza = Rovina.getRovina().get(i); // prende la città all'i-esimo posto
 
-                        peso = Math.abs(citta_partenza.coordinata.getZ() - citta_arrivo.coordinata.getZ());
-                        citta_partenza.percorsi.replace(key, peso);
+                    citta_partenza.percorsi.forEach((key, value) -> { // per ogni citta va a scorrere i suoi percorsi(archi)
+                        double peso; // peso dell'arco
+                        Citta citta_arrivo = getCittaById(key); // citta di arrivo
+
+                        peso = Math.abs(citta_partenza.coordinata.getZ() - citta_arrivo.coordinata.getZ()); // calcola il peso tra due città in base all'altezza
+                        citta_partenza.percorsi.replace(key, peso); // aggiorna il peso
                     });
                 }
                 break;
@@ -119,9 +120,9 @@ public class Citta {
 
         Citta citta_cercato = null;
 
-        for (int i = 0; i < Rovina.getRovina().size(); i++) {
-            Citta citta_attuale = Rovina.getRovina().get(i);
-            if (citta_attuale.id == id_da_cercare) citta_cercato = citta_attuale;
+        for (int i = 0; i < Rovina.getRovina().size(); i++) { // va a scorrere tutte le città del grafo
+            Citta citta_attuale = Rovina.getRovina().get(i); // prende la città all'i-esimo
+            if (citta_attuale.id == id_da_cercare) citta_cercato = citta_attuale; // se l'id della citta corrisponde all'id cercato aggiorna la variabile citta_cercato
         }
 
         return citta_cercato;
