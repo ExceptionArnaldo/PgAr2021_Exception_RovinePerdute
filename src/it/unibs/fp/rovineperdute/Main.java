@@ -26,6 +26,7 @@ public class Main {
             Xml.formatXMLFile(String.format(Costante.FILE_ROUTES, Costante.FILE_INPUT_INDICE[i])); // formattazione file
         }*/
 
+        System.out.println(Utente.scegliFile());
 
         ArrayList<Citta> citta = new ArrayList<>();
 

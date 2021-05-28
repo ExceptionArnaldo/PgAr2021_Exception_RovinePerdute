@@ -17,6 +17,23 @@ public class Costante {
     public static final String COORDINATAH = "h";
     public static final String LINK = "link";
 
+    /*public static final String PERCORSO_FILE_5 = "./percorsi/file_input/PgAr_Map_5.xml";
+    public static final String PERCORSO_FILE_12 = "./percorsi/file_input/PgAr_Map_12.xml";
+    public static final String PERCORSO_FILE_50 = "./percorsi/file_input/PgAr_Map_50.xml";
+    public static final String PERCORSO_FILE_200 = "./percorsi/file_input/PgAr_Map_200.xml";
+    public static final String PERCORSO_FILE_2000 = "./percorsi/file_input/PgAr_Map_2000.xml";
+    public static final String PERCORSO_FILE_10000 = "./percorsi/file_input/PgAr_Map_10000.xml";*/
+
+    public static final String NOME_FILE_5 = "Xml da 5";
+    public static final String NOME_FILE_12 = "Xml da 12";
+    public static final String NOME_FILE_50 = "Xml da 50";
+    public static final String NOME_FILE_200 = "Xml da 200";
+    public static final String NOME_FILE_2000 = "Xml da 2000";
+    public static final String NOME_FILE_10000 = "Xml da 10000";
+
+    public static String titolo_menu_file = "Scegli il file";
+    public static String[] voci_menu_file = {NOME_FILE_5, NOME_FILE_12, NOME_FILE_50, NOME_FILE_200, NOME_FILE_2000, NOME_FILE_10000};
+
     public static final String ROUTES = "routes";
     public static final String ROUTE = "route";
     public static final String TEAM = "team";

@@ -119,8 +119,8 @@ public class Xml {
             xmlw.writeStartDocument(Costante.ENCODING, Costante.VERSION);
             xmlw.writeStartElement(Costante.ROUTES); // scrittura del tag radice Routes
 
-            scriviTeam(xmlw, team1); //scrittura team
-            scriviTeam(xmlw, team2);
+           /* scriviTeam(xmlw, team1); //scrittura team
+            scriviTeam(xmlw, team2);*/
 
             xmlw.writeEndElement(); // chiusura di </routes>
             xmlw.writeEndDocument(); // scrittura della fine del documento
@@ -134,7 +134,7 @@ public class Xml {
         }
     }
 
-    private static void scriviTeam(XMLStreamWriter xmlw, Team team) throws XMLStreamException {
+    /*private static void scriviTeam(XMLStreamWriter xmlw, Team team) throws XMLStreamException {
         xmlw.writeStartElement(Costante.ROUTE); // apertura del tag <route>
         xmlw.writeAttribute(Costante.TEAM, team.getVeicolo());
         xmlw.writeAttribute(Costante.COSTO, Integer.toString(team.getCarburante()));
@@ -147,7 +147,7 @@ public class Xml {
             xmlw.writeEndElement(); // chiusura di </city>
         }
         xmlw.writeEndElement(); // chiusura di </route>
-    }
+    }*/
 
     /**
      * Formatta file xml.
