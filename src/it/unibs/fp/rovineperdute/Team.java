@@ -4,28 +4,12 @@ import java.util.*;
 
 public class Team {
 
-    private String nome;
     private String veicolo;
-    private int carburante;
-    private ArrayList<Citta> percorso = new ArrayList<>();
-
-    private double distanza[];
-    private int citta_precedenti[];
-    boolean visitato[];
-
     private Stack<Integer> percorso_minimo = new Stack<>();
+    private double carburante_tot;
 
-    public Team(String nome, String veicolo) {
-        this.nome = nome;
+    public Team(String veicolo) {
         this.veicolo = veicolo;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getVeicolo() {
@@ -36,44 +20,28 @@ public class Team {
         this.veicolo = veicolo;
     }
 
-    public int getCarburante() {
-        return carburante;
+    public Stack<Integer> getPercorso_minimo() {
+        return percorso_minimo;
     }
 
-    public void setCarburante(int carburante) {
-        this.carburante = carburante;
+    public void setPercorso_minimo(Stack<Integer> percorso_minimo) {
+        this.percorso_minimo = percorso_minimo;
     }
 
-    public ArrayList<Citta> getPercorso() {
-        return percorso;
+    public void setCarburanteTotale(double distanza[]){
+        this.carburante_tot = distanza[distanza.length-1];
     }
 
-    public void setPercorso(ArrayList<Citta> percorso) {
-        this.percorso = percorso;
+    public double getCarburante_tot() {
+        return carburante_tot;
     }
 
-    public double[] getDistanza() {
-        return distanza;
-    }
-
-    public void setDistanza(double[] distanza) {
-        this.distanza = distanza;
-    }
-
-    public int[] getCitta_precedenti() {
-        return citta_precedenti;
-    }
-
-    public void setCitta_precedenti(int[] citta_precedenti) {
-        this.citta_precedenti = citta_precedenti;
-    }
-
-    public void algoritmo(Citta citta_partenza) {
+    public void dijkstra(Citta citta_partenza) {
 
         int numero_citta = Rovina.getRovina().size();
-        distanza = new double[numero_citta];
-        citta_precedenti = new int[numero_citta];
-        visitato = new boolean[numero_citta];
+        double [] distanza = new double[numero_citta];
+        int [] citta_precedenti = new int[numero_citta];
+        boolean [] visitato = new boolean[numero_citta];
 
         ArrayList <Citta> citta = new ArrayList(Rovina.getRovina());
 
@@ -86,7 +54,7 @@ public class Team {
         distanza[citta_partenza.getId()] = 0;
 
         for(int i = 0; i < numero_citta; i++){
-            int id_attuale = distanzaPiuBreve();
+            int id_attuale = distanzaPiuBreve(distanza, visitato);
 
             visitato[id_attuale] = true;
             for(int j = 0; j < numero_citta; j++){
@@ -103,10 +71,11 @@ public class Team {
             }
         }
 
-        setPercorsoMinimo();
+        setPercorsoMinimo(citta_precedenti);
+        setCarburanteTotale(distanza);
     }
 
-    public int distanzaPiuBreve() {
+    public int distanzaPiuBreve(double distanza[], boolean visitato[]) {
 
         double min = Double.POSITIVE_INFINITY;
         int pos = -1;
@@ -116,12 +85,13 @@ public class Team {
                 min = distanza[i];
                 pos = i;
             }
-
         }
+
         return pos;
     }
 
-    public void setPercorsoMinimo(){
+    public void setPercorsoMinimo(int [] citta_precedenti){
+
         int indice = citta_precedenti.length - 1;
 
         percorso_minimo.push(indice);
@@ -132,7 +102,6 @@ public class Team {
         }
 
         System.out.println(percorso_minimo);
-
     }
 
 }
