@@ -5,7 +5,7 @@ import java.util.*;
 public class Team {
 
     private String veicolo;
-    private Stack<Integer> percorso_minimo = new Stack<>();
+    private Stack<Citta> percorso_minimo = new Stack<>();
     private double carburante_tot;
 
     public Team(String veicolo) {
@@ -20,11 +20,11 @@ public class Team {
         this.veicolo = veicolo;
     }
 
-    public Stack<Integer> getPercorso_minimo() {
+    public Stack<Citta> getPercorso_minimo() {
         return percorso_minimo;
     }
 
-    public void setPercorso_minimo(Stack<Integer> percorso_minimo) {
+    public void setPercorso_minimo(Stack<Citta> percorso_minimo) {
         this.percorso_minimo = percorso_minimo;
     }
 
@@ -94,10 +94,10 @@ public class Team {
 
         int indice = citta_precedenti.length - 1;
 
-        percorso_minimo.push(indice);
+        percorso_minimo.push(Citta.getCittaById(indice));
 
         while(citta_precedenti[indice] != -1){
-            percorso_minimo.push(citta_precedenti[indice]);
+            percorso_minimo.push(Citta.getCittaById(citta_precedenti[indice]));
             indice = citta_precedenti[indice];
         }
 
