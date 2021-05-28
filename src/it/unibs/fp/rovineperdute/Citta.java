@@ -101,7 +101,7 @@ public class Citta {
                         double peso; // peso dell'arco
                         Citta citta_arrivo = getCittaById(key); // citta di arrivo
 
-                        peso = Math.abs(citta_partenza.coordinata.getZ() - citta_arrivo.coordinata.getZ()); // calcola il peso tra due città in base all'altezza
+                        peso = Math.abs(citta_partenza.coordinata.getZ() - citta_arrivo.coordinata.getZ()); // calcola il peso tra due città in base alla coordinata z
                         citta_partenza.percorsi.replace(key, peso); // aggiorna il peso
                     });
                 }
